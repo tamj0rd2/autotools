@@ -1,0 +1,30 @@
+{
+  "name": "autotools3",
+  "version": "1.0.0",
+  "description": "Adds additional functionality to Autotask",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/tamj0rd2/autotools3.git"
+  },
+  "keywords": [
+    "chrome",
+    "webpack"
+  ],
+  "author": "tamj0rd2",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/tamj0rd2/autotools3/issues"
+  },
+  "homepage": "https://gitlab.com/tamj0rd2/autotools3#README",
+  "devDependencies": {
+    "eslint": "^3.12.1",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-mocha": "^4.7.0",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-standard": "^2.0.1"
+  }
+}

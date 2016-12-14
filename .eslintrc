@@ -1,0 +1,18 @@
+{
+  "env": {
+    "browser": true,
+    "jquery": true,
+    "node": true,
+    "es6": true
+  },
+  "globals": {
+    "chrome": true
+  },
+  "plugins": [
+    "mocha"
+  ],
+  "extends": "standard",
+  "rules": {
+      "mocha/no-exclusive-tests": "error"
+    }
+}
