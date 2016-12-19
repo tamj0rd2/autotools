@@ -4,8 +4,10 @@ A Google Chrome extension that adds additional functionality to the website.
 ## Features
 
 ### Coming Soon
-* Skip the dashboard and automatically load "My open tickets"
-* Display names in `Firstname Lastname` format on the ticket editing page
-* Add a 1-click shortcut toolbar with customisable options
-* Open tickets in the current tab instead of a new window
-* Hide tickets that are "Waiting Approval"
+* Automatically redirect to "My Workspace & Queues"
+* Add toolbar with 1-click shortcuts
+* Open tickets in the current tab instead of in a new window
+* Hide tickets that are waiting for approval
+* Highlight tickets that need to be/haven't been chased within SLA
+* Display names in "Firstname, Lastname" format
+* Select the logged in user as the primary resource for new tickets
