@@ -1,0 +1,32 @@
+div.TamDiv1 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+
+  width: 212px;
+  height: 36px;
+  border: 1px solid #D7D7D7;
+}
+
+div.TamDiv1 > .ButtonGroup {
+  position: absolute;
+}
+
+.TamButton {
+  cursor: pointer;
+  height: 36px;
+  display: inline;
+  position: relative;
+
+  font-weight: bold;
+  color: #676767;
+
+  background-image: linear-gradient(to bottom, #FBFBFB 0px, #FBFBFB 0px, #F4F4F4 100%);
+  border: none;
+}
+
+.TamButton:hover, .TamButton:active {
+  background-image: linear-gradient(to bottom, #ffffff 0px, #ffffff 0px, #f9f9f9 100%);
+}

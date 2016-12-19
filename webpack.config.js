@@ -1,5 +1,6 @@
 var path = require('path')
 var extension = path.join(__dirname, 'extension')
+var webpack = require('webpack')
 
 module.exports = {
   entry: path.join(extension, 'js', 'entry.js'),
@@ -19,5 +20,11 @@ module.exports = {
         loaders: ['style', 'css', 'sass']
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
+    })
+  ]
 }
