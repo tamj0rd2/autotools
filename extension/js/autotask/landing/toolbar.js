@@ -5,49 +5,44 @@
 require('../../../css/shortcuts.scss')
 
 $(document).ready(() => {
-  // Creates a button group to hold the buttons
-  var newBtnGroup = document.createElement('div')
-  newBtnGroup.className = 'ButtonGroup'
+  let $toolbar = $('<div>', {
+    id: 'AT3Toolbar',
+    class: 'ButtonGroup'
+  })
 
-  // Creates a division to hold the button group
-  var newDiv = document.createElement('div')
-  newDiv.className = 'TamDiv1'
-    // adds button group to the actual division
-  newDiv.appendChild(newBtnGroup)
-
-  // creates reference to last member of the navbar
-  var navRef = document.getElementById('SiteNavigationBarRight')
-  // adds the division to the navbar
-  navRef.parentNode.insertBefore(newDiv, navRef.nextSibling)
-
-  // creates references to frames and page containers we may need
-  var dashboardContainer = document.getElementById('DashboardContainer')
-  var pageContainer = document.getElementById('PageContainer')
-  var iframe = document.getElementById('PageContainerFrame')
-
-  // function to add shortcut buttons to the page
-  function createShortcut (btnId, group, btnText, newSrc) {
-    var newBtn = document.createElement('button')
-    newBtn.className = 'TamButton'
-    newBtn.id = btnId
-    newBtn.textContent = btnText
-    newBtn.onclick = function () {
-      iframe.src = newSrc
-      if (pageContainer.className !== 'Active') {
-        pageContainer.className = 'Active'
-        dashboardContainer.className = ''
-      }
+  // the props for each button goes in this array
+  let btns = [
+    {
+      text: 'Tickets',
+      url: '/serviceDesk/MyQueues.asp?isFromMyWorkspaceAndQueues=1'
+    },
+    {
+      text: 'Timesheet',
+      url: '/home/timeEntry/wrkEntryFrames.asp'
+    },
+    {
+      text: 'Dispatcher',
+      url: '/Autotask/Views/DispatcherWorkshop/DispatcherWorkshopContainer.aspx'
     }
-    group.appendChild(newBtn)
-  }
+  ]
 
-  // creates variables for useful views
-  var ticketsView = '/serviceDesk/MyQueues.asp?isFromMyWorkspaceAndQueues=1'
-  var timesheetView = '/home/timeEntry/wrkEntryFrames.asp'
-  var dispatcherView = '/Autotask/Views/DispatcherWorkshop/DispatcherWorkshopContainer.aspx'
+  // get a reference to the main frame
+  let frame = $('#PageContainerFrame')
 
-  // adds shortcuts to the page
-  createShortcut('TQueueSC', newBtnGroup, 'Tickets', ticketsView)
-  createShortcut('TTimesheetSC', newBtnGroup, 'Timesheet', timesheetView)
-  createShortcut('TDispatcherSC', newBtnGroup, 'Dispatcher', dispatcherView)
+  // create and add each button to the toolbar
+  btns.forEach(btnObj => {
+    let $btn = $('<button>', {
+      class: 'AT3ToolbarBtn',
+      text: btnObj.text,
+      click () {
+        $(frame).attr('src', btnObj.url)
+        $('#PageContainer').attr('class', 'Active')
+        $('#DashboardContainer').removeAttr('class')
+      }
+    })
+    $($toolbar).append($btn)
+  })
+
+  // add the toolbar to the DOM
+  $('#SiteNavigationBar').append($toolbar)
 })

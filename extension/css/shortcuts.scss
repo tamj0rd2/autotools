@@ -1,4 +1,4 @@
-div.TamDiv1 {
+#AT3Toolbar {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -10,11 +10,7 @@ div.TamDiv1 {
   border: 1px solid #D7D7D7;
 }
 
-div.TamDiv1 > .ButtonGroup {
-  position: absolute;
-}
-
-.TamButton {
+.AT3ToolbarBtn {
   cursor: pointer;
   height: 36px;
   display: inline;
@@ -27,6 +23,6 @@ div.TamDiv1 > .ButtonGroup {
   border: none;
 }
 
-.TamButton:hover, .TamButton:active {
+.AT3ToolbarBtn:hover, .AT3ToolbarBtn:active {
   background-image: linear-gradient(to bottom, #ffffff 0px, #ffffff 0px, #f9f9f9 100%);
 }
