@@ -1,0 +1,27 @@
+{
+  "name": "AutoTools3",
+  "manifest_version": 2,
+  "version": "1.0.0",
+  "icons": {
+    "16": "./images/icon16.ico"
+  },
+  "browser_action": {
+    "default_icon": "./images/icon16.ico",
+    "default_popup": "./html/popup.html"
+  },
+  "permissions": [
+    "tabs",
+    "https://ww4.autotask.net/",
+    "storage",
+    "declarativeContent"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://ww4.autotask.net/*"
+      ],
+      "js": ["./dist/bundle.js"],
+      "run_at": "document_end"
+    }
+  ]
+}
