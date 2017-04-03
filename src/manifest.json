@@ -22,7 +22,7 @@
         "https://ww16.autotask.net/*",
         "https://ww4.autotask.net/*"
       ],
-      "js": ["./dist/bundle.js"],
+      "js": ["./js/bundle.js"],
       "run_at": "document_end"
     }
   ]

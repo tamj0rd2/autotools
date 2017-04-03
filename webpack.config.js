@@ -1,11 +1,10 @@
 var path = require('path')
-var extension = path.join(__dirname, 'extension')
 var webpack = require('webpack')
 
 module.exports = {
-  entry: path.join(extension, 'js', 'entry.js'),
+  entry: path.join(__dirname, 'src', 'js', 'entry.js'),
   output: {
-    path: path.join(extension, 'dist'),
+    path: path.join(__dirname, 'build'),
     filename: 'bundle.js'
   },
   module: {
