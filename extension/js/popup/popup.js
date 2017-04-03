@@ -1,1 +1,1 @@
-alert('This is the popup\'s js :)')
+console.log('This is the popup\'s js :)')
