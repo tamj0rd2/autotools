@@ -3,6 +3,8 @@
  */
 
 require('../../../css/shortcuts.scss')
+var helpers = require('./helpers')
+var R = require('ramda')
 
 $(document).ready(() => {
   let $toolbar = $('<div>', {
@@ -10,38 +12,22 @@ $(document).ready(() => {
     class: 'ButtonGroup'
   })
 
-  // the props for each button goes in this array
-  let btns = [
-    {
-      text: 'Tickets',
-      url: '/serviceDesk/MyQueues.asp?isFromMyWorkspaceAndQueues=1'
-    },
-    {
-      text: 'Timesheet',
-      url: '/home/timeEntry/wrkEntryFrames.asp'
-    },
-    {
-      text: 'Dispatcher',
-      url: '/Autotask/Views/DispatcherWorkshop/DispatcherWorkshopContainer.aspx'
-    }
-  ]
-
   // get a reference to the main frame
   let frame = $('#PageContainerFrame')
 
-  // create and add each button to the toolbar
-  btns.forEach(btnObj => {
+  let addBtnToToolbar = (btnText, url) => {
     let $btn = $('<button>', {
       class: 'AT3ToolbarBtn',
-      text: btnObj.text,
-      click () {
-        $(frame).attr('src', btnObj.url)
-        $('#PageContainer').attr('class', 'Active')
-        $('#DashboardContainer').removeAttr('class')
-      }
+      text: btnText,
+      click () { helpers.loadAPage(frame, url) }
     })
     $($toolbar).append($btn)
-  })
+  }
+
+  // create and add each button to the toolbar
+  for (let key in helpers.urls.toolbar) {
+    addBtnToToolbar(key, helpers.urls.toolbar[key])
+  }
 
   // add the toolbar to the DOM
   $('#SiteNavigationBar').append($toolbar)

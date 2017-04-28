@@ -1,4 +1,5 @@
 // TODO: Automatically redirect to "My Workspace & Queues"
+require('./landing/autoload-tickets.js')
 
 // Add toolbar with 1-click shortcuts
 require('./landing/toolbar.js')
