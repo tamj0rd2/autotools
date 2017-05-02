@@ -42,9 +42,10 @@ gulp.task('bundle', function () {
     .pipe(gulp.dest(outPaths.js))
 })
 
-gulp.task('build', ['collect', 'bundle'])
+gulp.task('build:src', ['collect', 'bundle'])
 
-gulp.task('watch', ['build'], function () {
+
+gulp.task('watch', ['build:src'], function () {
   gulp.watch([globs.base, globs.images, globs.html], ['collect'])
   gulp.watch([globs.js, globs.css], ['bundle'])
 })
