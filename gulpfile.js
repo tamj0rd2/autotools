@@ -27,7 +27,7 @@ var globs = {
 
 // collect source items used for the actual extension
 gulp.task('collect', function () {
-  gulp.src(globs.base)
+  gulp.src(globs.base, {nodir: true})
     .pipe(gulp.dest(outPaths.base))
 
   gulp.src(globs.images)
