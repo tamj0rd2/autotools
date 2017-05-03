@@ -3,17 +3,19 @@ var path = require('path')
 var webpack = require('gulp-webpack')
 var webpackConfig = require('./webpack.config.js')
 
-var paths = {
-  'base': webpackConfig.output.path
-}
+var projectRoot = webpackConfig.output.path
 
-var outPaths = {
-  'base': paths.base,
-  'images': path.join(paths.base, 'images'),
-  'html': path.join(paths.base, 'html'),
-  'js': path.join(paths.base, 'js'),
-  'css': path.join(paths.base, 'css')
-}
+var outPaths = (function () {
+  let dist = path.join(projectRoot, 'dist')
+
+  return {
+    'base': dist,
+    'images': path.join(dist, 'images'),
+    'html': path.join(dist, 'html'),
+    'js': path.join(dist, 'js'),
+    'css': path.join(dist, 'css'),
+  }
+})()
 
 var globs = {
   'base': 'src/*',
