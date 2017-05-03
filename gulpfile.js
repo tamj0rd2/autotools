@@ -1,11 +1,11 @@
-var gulp = require('gulp')
-var path = require('path')
-var webpack = require('gulp-webpack')
-var webpackConfig = require('./webpack.config.js')
+const gulp = require('gulp')
+const path = require('path')
+const webpack = require('gulp-webpack')
+const webpackConfig = require('./webpack.config.js')
 
-var projectRoot = webpackConfig.output.path
+const projectRoot = webpackConfig.output.path
 
-var outPaths = (function () {
+const outPaths = (function () {
   let dist = path.join(projectRoot, 'dist')
 
   return {
@@ -17,7 +17,7 @@ var outPaths = (function () {
   }
 })()
 
-var globs = {
+const globs = {
   base: 'src/*',
   images: 'src/images/**/*',
   html: 'src/html/**/*',
