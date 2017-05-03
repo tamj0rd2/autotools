@@ -1,7 +1,7 @@
 {
-  "name": "AutoTools3",
+  "name": "AutoTools",
   "manifest_version": 2,
-  "version": "1.0.0",
+  "version": "0.0.0",
   "icons": {
     "16": "./images/icon16.ico"
   },
