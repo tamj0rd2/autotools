@@ -9,20 +9,20 @@ var outPaths = (function () {
   let dist = path.join(projectRoot, 'dist')
 
   return {
-    'base': dist,
-    'images': path.join(dist, 'images'),
-    'html': path.join(dist, 'html'),
-    'js': path.join(dist, 'js'),
-    'css': path.join(dist, 'css'),
+    base: dist,
+    images: path.join(dist, 'images'),
+    html: path.join(dist, 'html'),
+    js: path.join(dist, 'js'),
+    css: path.join(dist, 'css'),
   }
 })()
 
 var globs = {
-  'base': 'src/*',
-  'images': 'src/images/**/*',
-  'html': 'src/html/**/*',
-  'js': 'src/js/**/*',
-  'css': 'src/css/**/*'
+  base: 'src/*',
+  images: 'src/images/**/*',
+  html: 'src/html/**/*',
+  js: 'src/js/**/*',
+  css: 'src/css/**/*'
 }
 
 // collect source items used for the actual extension
