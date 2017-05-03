@@ -25,5 +25,10 @@
       "js": ["./js/bundle.js"],
       "run_at": "document_end"
     }
-  ]
+  ],
+  "applications": {
+    "gecko": {
+      "id": "AutoTools@tamj0rd2.io"
+    }
+  }
 }
