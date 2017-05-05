@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "gulp build:src",
-    "start": "gulp watch"
+    "build": "gulp build:firefox",
+    "start": "gulp watch",
+    "start-browser": " web-ext run --source-dir build/dist"
   },
   "repository": {
     "type": "git",
@@ -29,7 +30,12 @@
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^2.0.1",
     "gulp": "^3.9.1",
-    "gulp-webpack": "^1.5.0"
+    "gulp-util": "^3.0.8",
+    "gulp-webpack": "^1.5.0",
+    "gulp-zip": "^4.0.0",
+    "readline-sync": "^1.4.7",
+    "sign-addon": "^0.2.1",
+    "web-ext": "^1.9.1"
   },
   "dependencies": {
     "babel-core": "^6.20.0",

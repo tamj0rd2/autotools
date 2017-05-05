@@ -2,6 +2,7 @@ const gulp = require('gulp')
 const path = require('path')
 const webpack = require('gulp-webpack')
 const webpackConfig = require('./webpack.config.js')
+const generateXpi = require('./scripts/firefox-build')
 
 const projectRoot = webpackConfig.output.path
 
@@ -14,6 +15,7 @@ const outPaths = (function () {
     html: path.join(dist, 'html'),
     js: path.join(dist, 'js'),
     css: path.join(dist, 'css'),
+    firefox: path.join(projectRoot, 'firefox')
   }
 })()
 
@@ -46,6 +48,9 @@ gulp.task('bundle', function () {
 
 gulp.task('build:src', ['collect', 'bundle'])
 
+gulp.task('build:firefox', ['build:src'], function () {
+  generateXpi(outPaths.firefox, outPaths.base)
+})
 
 gulp.task('watch', ['build:src'], function () {
   gulp.watch([globs.base, globs.images, globs.html], ['collect'])
