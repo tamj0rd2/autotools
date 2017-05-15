@@ -1,4 +1,4 @@
-# AutoTools3
+# AutoTools
 A Google Chrome extension that adds additional functionality to the website.
 
 ## Features

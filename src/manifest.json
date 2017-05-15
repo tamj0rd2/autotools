@@ -1,13 +1,13 @@
 {
-  "name": "AutoTools3",
+  "name": "AutoTools",
   "manifest_version": 2,
-  "version": "1.0.0",
+  "version": "0.0.1",
   "icons": {
     "16": "./images/icon16.ico"
   },
   "browser_action": {
     "default_icon": "./images/icon16.ico",
-    "default_popup": "./html/popup.html"
+    "default_popup": "./popup/popup.html"
   },
   "permissions": [
     "tabs",
@@ -22,8 +22,13 @@
         "https://ww16.autotask.net/*",
         "https://ww4.autotask.net/*"
       ],
-      "js": ["./js/bundle.js"],
+      "js": ["./extension.bundle.js"],
       "run_at": "document_end"
     }
-  ]
+  ],
+  "applications": {
+    "gecko": {
+      "id": "AutoTools@tamj0rd2.io"
+    }
+  }
 }
