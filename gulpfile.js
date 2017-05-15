@@ -1,58 +1,124 @@
+/* eslint-disable no-console */
 const gulp = require('gulp')
+const clean = require('gulp-clean')
 const path = require('path')
 const webpack = require('gulp-webpack')
 const webpackConfig = require('./webpack.config.js')
-const generateXpi = require('./scripts/firefox-build')
+const amoJson = require('./amo.json')
+const zip = require('gulp-zip')
+const makeXpi = require('./scripts/firefox-build')
+const fs = require('fs')
+const redText = require('colors/safe').red
 
-const projectRoot = webpackConfig.output.path
-
-const outPaths = (function () {
-  let dist = path.join(projectRoot, 'dist')
-
-  return {
-    base: dist,
-    images: path.join(dist, 'images'),
-    html: path.join(dist, 'html'),
-    js: path.join(dist, 'js'),
-    css: path.join(dist, 'css'),
-    firefox: path.join(projectRoot, 'firefox')
-  }
-})()
-
-const globs = {
-  base: 'src/*',
-  images: 'src/images/**/*',
-  html: 'src/html/**/*',
-  js: 'src/js/**/*',
-  css: 'src/css/**/*'
+const paths = {
+  src: './src',
+  dev: './build/dev',
+  firefox: './build/firefox'
 }
 
-// collect source items used for the actual extension
-gulp.task('collect', function () {
-  gulp.src(globs.base, {nodir: true})
-    .pipe(gulp.dest(outPaths.base))
+const globs = {
+  static: {
+    src: [
+      `${paths.src}/manifest.json`,
+      `${paths.src}/images/**/*`,
+      `${paths.src}/popup/popup.html`
+    ],
+    output: [
+      `${paths.dev}/manifest.json`,
+      `${paths.dev}/images/`,
+      `${paths.dev}/popup/popup.html`
+    ]
+  },
+  extension: {
+    src: `${paths.src}/extension/**/*`,
+    output: `${paths.dev}/`,
+    filename: 'extension.bundle.js'
+  },
+  popup: {
+    src: `${paths.src}/popup/**/*`,
+    output: `${paths.dev}/popup/`,
+    filename: 'popup.bundle.js'
+  }
+}
 
-  gulp.src(globs.images)
-    .pipe(gulp.dest(outPaths.images))
-
-  gulp.src(globs.html)
-    .pipe(gulp.dest(outPaths.html))
+gulp.task('clean:static', () => {
+  return gulp.src(globs.static.output, {read: false})
+    .pipe(clean())
 })
 
-// build the webpack bundle
-gulp.task('bundle', function () {
-  return gulp.src(webpackConfig.entry)
-    .pipe(webpack(webpackConfig))
-    .pipe(gulp.dest(outPaths.js))
+gulp.task('bundle:static', ['clean:static'], () => {
+  return gulp.src(globs.static.src, {base: `${paths.src}/`, nodir: true})
+    .pipe(gulp.dest(`${paths.dev}`))
 })
 
-gulp.task('build:src', ['collect', 'bundle'])
-
-gulp.task('build:firefox', ['build:src'], function () {
-  generateXpi(outPaths.firefox, outPaths.base)
+gulp.task('clean:extension', () => {
+  let bundlePath = path.join(globs.extension.output, globs.extension.filename)
+  return gulp.src(bundlePath, {read: false})
+    .pipe(clean())
 })
 
-gulp.task('watch', ['build:src'], function () {
-  gulp.watch([globs.base, globs.images, globs.html], ['collect'])
-  gulp.watch([globs.js, globs.css], ['bundle'])
+gulp.task('bundle:extension', ['clean:extension'], () => {
+  let config = webpackConfig.extension(paths, globs)
+
+  return gulp.src(config.entry)
+    .pipe(webpack(config))
+    .pipe(gulp.dest(globs.extension.output))
+})
+
+gulp.task('clean:popup', () => {
+  return gulp.src(globs.popup.output, {read: false})
+    .pipe(clean())
+})
+
+gulp.task('bundle:popup', ['clean:popup'], () => {
+  let config = webpackConfig.popup(paths, globs)
+
+  return gulp.src(config.entry)
+    .pipe(webpack(config))
+    .pipe(gulp.dest(globs.popup.output))
+})
+
+gulp.task('clean', ['clean:static', 'clean:extension', 'clean:popup'])
+
+gulp.task('build', ['bundle:static', 'bundle:extension', 'bundle:popup'])
+
+gulp.task('watch', ['build'], () => {
+  gulp.watch(globs.static.src, ['bundle:static'])
+  gulp.watch(globs.extension.src, ['bundle:extension'])
+  gulp.watch(globs.popup.src, ['bundle:popup'])
+})
+
+gulp.task('release:firefox', ['build'], () => {
+  let xpi = (() => {
+    let manifest = require(`${paths.dev}/manifest.json`)
+
+    let unsigned = {
+      name: `${manifest.name}_${manifest.version}_unsigned.xpi`,
+      srcPath: `${paths.dev}/**/*`,
+      outPath: paths.firefox
+    }
+
+    return {
+      unsigned,
+      signed: {
+        xpiPath: `${unsigned.outPath}/${unsigned.name}`,
+        id: manifest.applications.gecko.id,
+        version: manifest.version,
+        apiKey: amoJson.AMO_JWT_ISSUER,
+        apiSecret: amoJson.AMO_JWT_SECRET,
+        downloadDir: unsigned.outPath
+      }
+    }
+  })()
+
+  fs.stat(`${xpi.unsigned.outPath}/${xpi.unsigned.name}`, (err) => {
+    if (!err) {
+      console.log(redText('ERROR: The unsigned XPI already exists!'))
+    } else {
+      return gulp.src(globs.static.output)
+        .pipe(zip(xpi.unsigned.name))
+        .pipe(gulp.dest(xpi.unsigned.outPath))
+        .pipe(makeXpi(xpi.signed))
+    }
+  })
 })

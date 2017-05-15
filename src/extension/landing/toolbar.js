@@ -2,7 +2,7 @@
  * Add toolbar with 1-click shortcuts
  */
 
-require('../../../css/shortcuts.scss')
+require('./toolbar.scss')
 var helpers = require('./helpers')
 var R = require('ramda')
 

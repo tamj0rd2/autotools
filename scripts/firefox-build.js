@@ -1,27 +1,10 @@
-const gulp = require('gulp')
+/* eslint-disable no-console */
 const gulpUtil = require('gulp-util')
-const path = require('path')
-const zip = require('gulp-zip')
-const signAddon = require('sign-addon').default
-const amoJson = require('../amo.json')
+const through = require('through2')
+const PluginError = gulpUtil.PluginError
 const readline = require('readline-sync')
-
-let buildXpi = function (xpi) {
-  gulp.src(xpi.src)
-    .pipe(zip(xpi.name))
-    .pipe(gulp.dest(xpi.path))
-}
-
-let signXpi = function (xpi) {
-  signAddon({
-    xpiPath: path.join(xpi.path, xpi.name),
-    id: xpi.id,
-    version: xpi.version,
-    apiKey: amoJson.AMO_JWT_ISSUER,
-    apiSecret: amoJson.AMO_JWT_SECRET,
-    downloadDir: xpi.path
-  })
-}
+const redText = require('colors/safe').red
+const signAddon = require('sign-addon').default
 
 let confirmBuild = function (xpi) {
   let posOps = ['y', 'yes']
@@ -40,26 +23,32 @@ let confirmBuild = function (xpi) {
   return answer
 }
 
-let generateXpi = function (xpiPath, xpiSrc) {
-  const manifest = require(path.join(xpiSrc, 'manifest.json'))
+let xpiSigner = (xpiConfig) => {
+  const PLUGIN_NAME = 'xpi-signer'
 
-  let xpi = {
-    name: `${manifest.name}_${manifest.version}_unsigned.xpi`,
-    path: xpiPath,
-    src: `${xpiSrc}/**/*`,
-    version: manifest.version,
-    id: manifest.id
+  if (!xpiConfig) {
+    throw new PluginError(PLUGIN_NAME, 'You need to provide config')
   }
 
-  buildXpi(xpi)
-  if (confirmBuild(xpi)) {
-    signXpi(xpi)
-  } else {
-    throw new gulpUtil.PluginError({
-      plugin: 'build:firefox',
-      message: 'Firefox sign process cancelled by user'
-    })
-  }
+  return through.obj((file, enc, cb) => {
+    if (file.isStream()) {
+      this.emit(
+        'error',
+        new PluginError(PLUGIN_NAME, 'Streams are not supported')
+      )
+      return cb()
+    }
+
+    if (file.isBuffer()) {
+      if (confirmBuild(xpiConfig)) {
+        signAddon(xpiConfig)
+        cb()
+      } else {
+        console.log(redText('Signing cancelled by user'))
+        return cb()
+      }
+    }
+  })
 }
 
-module.exports = generateXpi
+module.exports = xpiSigner

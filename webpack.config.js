@@ -1,12 +1,7 @@
-var path = require('path')
-var webpack = require('webpack')
+const webpack = require('webpack')
+const R = require('ramda')
 
-module.exports = {
-  entry: path.join(__dirname, 'src', 'js', 'entry.js'),
-  output: {
-    path: path.join(__dirname, 'build'),
-    filename: 'bundle.js'
-  },
+let baseConfig = {
   module: {
     loaders: [
       {
@@ -27,3 +22,21 @@ module.exports = {
     })
   ]
 }
+
+let extension = (paths, globs) => {
+  let config = R.clone(baseConfig)
+  config.entry = `${paths.src}/extension/entry.js`
+  config.output = { filename: globs.extension.filename }
+
+  return config
+}
+
+let popup = (paths, globs) => {
+  let config = R.clone(baseConfig)
+  config.entry = `${paths.src}/popup/popup.js`
+  config.output = {filename: globs.popup.filename}
+
+  return config
+}
+
+module.exports = { extension, popup }
