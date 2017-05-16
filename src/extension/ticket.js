@@ -1,3 +1,5 @@
+let handleNewTickets = require('./tickets/new-ticket')
+
 let ticketUrls = {
   new: 'https://ww16.autotask.net/autotask/views/ServiceDesk/ServiceDeskTicket/service_ticket_new.aspx',
   existing: 'https://ww16.autotask.net/autotask/views/ServiceDesk/ServiceDeskTicket/service_ticket.aspx'
@@ -35,7 +37,7 @@ let routeExistingTicket = () => {
 }
 
 if (RegExp(ticketUrls.new, 'g').test(location.href)) {
-  console.log('Do new ticket things')
+  handleNewTickets()
 } else if (RegExp(ticketUrls.existing, 'g').test(location.href)) {
   routeExistingTicket()
 }
