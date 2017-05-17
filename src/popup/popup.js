@@ -1,5 +1,5 @@
 require('bootstrap/dist/css/bootstrap.min.css')
 require('bootstrap/dist/js/bootstrap.min.js')
+require('./bootstrap-toggle/bootstrap-toggle.min.js')
+require('./bootstrap-toggle/bootstrap-toggle.min.css')
 require('./popup.scss')
-
-console.log('This is the popups js :)')

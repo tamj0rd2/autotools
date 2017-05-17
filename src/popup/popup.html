@@ -7,9 +7,22 @@
 </head>
 
 <body>
-  <div class="container">
-    Options go here :)
-  </div>
+  <main class="container">
+    <form>
+      <feature>
+        <label for="autoAssignCbx">Ticket auto-assign</label>
+        <input id="autoAssignCbx" type="checkbox" data-toggle="toggle" data-size="mini">
+        <div class="form-group">
+          <input id="firstName" type="text" placeholder="First Name" class="form-control">
+        </div>
+        <div class="form-group">
+          <input id="lastName" type="text" placeholder="Last Name" class="form-control">
+        </div>
+      </feature>
+      <button class="btn btn-primary btn-sm">Save</button>
+      <a class="btn btn-default btn-sm pull-right">Cancel</a>
+    </form>
+  </main>
   <script src="./popup.bundle.js" charset="utf-8"></script>
 </body>
 
