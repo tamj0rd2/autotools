@@ -8,7 +8,7 @@
     "build": "gulp build",
     "start": "gulp watch",
     "release": "gulp release:firefox",
-    "start-browser": " web-ext run --source-dir build/dev"
+    "start-browser": " web-ext run --source-dir build/dev --start-url autotask.net"
   },
   "repository": {
     "type": "git",

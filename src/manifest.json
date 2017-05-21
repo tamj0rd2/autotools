@@ -11,14 +11,14 @@
   },
   "permissions": [
     "tabs",
-    "https://ww16.autotask.net/",
+    "https://*.autotask.net/",
     "storage",
     "declarativeContent"
   ],
   "content_scripts": [
     {
       "matches": [
-        "https://ww16.autotask.net/*"
+        "https://*.autotask.net/*"
       ],
       "js": ["./extension.bundle.js"],
       "run_at": "document_end"
