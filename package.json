@@ -1,6 +1,6 @@
 {
   "name": "autotools",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Adds additional functionality to Autotask",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "build": "gulp build",
     "start": "gulp watch",
     "release": "gulp release:firefox",
-    "start-browser": " web-ext run --source-dir build/dev"
+    "start-browser": " web-ext run --source-dir build/dev --start-url autotask.net"
   },
   "repository": {
     "type": "git",

@@ -1,7 +1,7 @@
 {
   "name": "AutoTools",
   "manifest_version": 2,
-  "version": "0.0.2",
+  "version": "0.0.3",
   "icons": {
     "16": "./images/icon16.ico"
   },
@@ -11,14 +11,14 @@
   },
   "permissions": [
     "tabs",
-    "https://ww16.autotask.net/",
+    "https://*.autotask.net/",
     "storage",
     "declarativeContent"
   ],
   "content_scripts": [
     {
       "matches": [
-        "https://ww16.autotask.net/*"
+        "https://*.autotask.net/*"
       ],
       "js": ["./extension.bundle.js"],
       "run_at": "document_end"
