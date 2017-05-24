@@ -4,7 +4,7 @@ const clean = require('gulp-clean')
 const path = require('path')
 const webpack = require('gulp-webpack')
 const webpackConfig = require('./webpack.config.js')
-const amoJson = require('./amo.json')
+const amoConfig = require('./config.js').amo
 const zip = require('gulp-zip')
 const makeXpi = require('./scripts/firefox-build')
 const fs = require('fs')
@@ -104,8 +104,8 @@ gulp.task('release:firefox', ['build'], () => {
         xpiPath: `${unsigned.outPath}/${unsigned.name}`,
         id: manifest.applications.gecko.id,
         version: manifest.version,
-        apiKey: amoJson.AMO_JWT_ISSUER,
-        apiSecret: amoJson.AMO_JWT_SECRET,
+        apiKey: amoConfig.AMO_API_KEY,
+        apiSecret: amoConfig.AMO_SECRET_KEY,
         downloadDir: unsigned.outPath
       }
     }
