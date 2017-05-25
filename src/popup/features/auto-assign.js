@@ -1,9 +1,10 @@
-let initiateStorageVals = () => {
-  let featureSettings = {
-    enabled: false,
-    firstName: '',
-    lastName: ''
-  }
+const defaultFeatureSettings = {
+  enabled: false,
+  firstName: '',
+  lastName: ''
+}
+
+let setStorageVals = (featureSettings) => {
   chrome.storage.sync.set({autoAssign: featureSettings})
   return featureSettings
 }
@@ -13,13 +14,13 @@ let featureToggled = (e) => {
   $('#lastName').prop('disabled', !e.target.checked)
 }
 
-let autoAssign = (featureSettings) => {
-  if ($.isEmptyObject(featureSettings)) {
-    featureSettings = initiateStorageVals()
+module.exports = {
+  initiate: (featureSettings) => {
+    if ($.isEmptyObject(featureSettings)) {
+      featureSettings = setStorageVals(defaultFeatureSettings)
+    }
+
+    $('#autoAssignCbx').on('change', featureToggled)
+    $('#autoAssignCbx').prop('checked', featureSettings.enabled).change()
   }
-
-  $('#autoAssignCbx').on('change', featureToggled)
-  $('#autoAssignCbx').prop('checked', featureSettings.enabled).change()
 }
-
-module.exports = autoAssign
