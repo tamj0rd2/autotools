@@ -5,6 +5,12 @@ require('./bootstrap-toggle/bootstrap-toggle.min.js')
 require('./bootstrap-toggle/bootstrap-toggle.min.css')
 require('./popup.scss')
 
-chrome.storage.sync.get(null, (settings) => {
+chrome.storage.sync.get(null, settings => {
   features.autoAssign.initiate(settings.autoAssign)
+})
+
+$('#save').click(() => {
+  console.log('saving changes...')
+  features.autoAssign.save()
+  return false
 })
