@@ -37,6 +37,10 @@ const globs = {
   popup: {
     src: `${paths.src}/popup/**/*`,
     output: `${paths.dev}/popup/`,
+    clean: [
+      `${paths.dev}/popup/fonts/`,
+      `${paths.dev}/popup/popup.bundle.js`
+    ],
     filename: 'popup.bundle.js'
   }
 }
@@ -66,7 +70,7 @@ gulp.task('bundle:extension', ['clean:extension'], () => {
 })
 
 gulp.task('clean:popup', () => {
-  return gulp.src(globs.popup.output, {read: false})
+  return gulp.src(globs.popup.clean, {read: false})
     .pipe(clean())
 })
 
