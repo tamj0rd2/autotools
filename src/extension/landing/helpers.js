@@ -1,8 +1,8 @@
 let urls = {
   toolbar: {
-    'Tickets': '/serviceDesk/MyQueues.asp?isFromMyWorkspaceAndQueues=1',
-    'Timesheet': '/home/timeEntry/wrkEntryFrames.asp',
-    'Dispatcher': '/Autotask/Views/DispatcherWorkshop/DispatcherWorkshopContainer.aspx'
+    Tickets: '/serviceDesk/MyQueues.asp?isFromMyWorkspaceAndQueues=1',
+    Timesheet: '/home/timeEntry/wrkEntryFrames.asp',
+    Dispatcher: '/Autotask/Views/DispatcherWorkshop/DispatcherWorkshopContainer.aspx'
   }
 }
 

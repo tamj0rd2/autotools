@@ -19,7 +19,9 @@ $(document).ready(() => {
     let $btn = $('<button>', {
       class: 'AT3ToolbarBtn',
       text: btnText,
-      click () { helpers.loadAPage(frame, url) }
+      click () {
+        helpers.loadAPage(frame, url)
+      }
     })
     $($toolbar).append($btn)
   }

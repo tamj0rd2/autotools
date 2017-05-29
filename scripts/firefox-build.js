@@ -23,7 +23,7 @@ let confirmBuild = function (xpi) {
   return answer
 }
 
-let xpiSigner = (xpiConfig) => {
+let xpiSigner = xpiConfig => {
   const PLUGIN_NAME = 'xpi-signer'
 
   if (!xpiConfig) {

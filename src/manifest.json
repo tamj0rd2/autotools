@@ -20,7 +20,9 @@
       "matches": [
         "https://*.autotask.net/*"
       ],
-      "js": ["./extension.bundle.js"],
+      "js": [
+        "./extension.bundle.js"
+      ],
       "run_at": "document_end"
     }
   ],

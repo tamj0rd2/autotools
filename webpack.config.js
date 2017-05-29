@@ -54,7 +54,7 @@ let popup = (paths, globs) => {
   ]
 
   config.entry = `${paths.src}/popup/popup.js`
-  config.output = {filename: globs.popup.filename}
+  config.output = { filename: globs.popup.filename }
   config.module.loaders = R.concat(config.module.loaders, loaders)
   return config
 }

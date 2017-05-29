@@ -37,47 +37,44 @@ const globs = {
   popup: {
     src: `${paths.src}/popup/**/*`,
     output: `${paths.dev}/popup/`,
-    clean: [
-      `${paths.dev}/popup/fonts/`,
-      `${paths.dev}/popup/popup.bundle.js`
-    ],
+    clean: [`${paths.dev}/popup/fonts/`, `${paths.dev}/popup/popup.bundle.js`],
     filename: 'popup.bundle.js'
   }
 }
 
 gulp.task('clean:static', () => {
-  return gulp.src(globs.static.output, {read: false})
-    .pipe(clean())
+  return gulp.src(globs.static.output, { read: false }).pipe(clean())
 })
 
 gulp.task('bundle:static', ['clean:static'], () => {
-  return gulp.src(globs.static.src, {base: `${paths.src}/`, nodir: true})
+  return gulp
+    .src(globs.static.src, { base: `${paths.src}/`, nodir: true })
     .pipe(gulp.dest(`${paths.dev}`))
 })
 
 gulp.task('clean:extension', () => {
   let bundlePath = path.join(globs.extension.output, globs.extension.filename)
-  return gulp.src(bundlePath, {read: false})
-    .pipe(clean())
+  return gulp.src(bundlePath, { read: false }).pipe(clean())
 })
 
 gulp.task('bundle:extension', ['clean:extension'], () => {
   let config = webpackConfig.extension(paths, globs)
 
-  return gulp.src(config.entry)
+  return gulp
+    .src(config.entry)
     .pipe(webpack(config))
     .pipe(gulp.dest(globs.extension.output))
 })
 
 gulp.task('clean:popup', () => {
-  return gulp.src(globs.popup.clean, {read: false})
-    .pipe(clean())
+  return gulp.src(globs.popup.clean, { read: false }).pipe(clean())
 })
 
 gulp.task('bundle:popup', ['clean:popup'], () => {
   let config = webpackConfig.popup(paths, globs)
 
-  return gulp.src(config.entry)
+  return gulp
+    .src(config.entry)
     .pipe(webpack(config))
     .pipe(gulp.dest(globs.popup.output))
 })
@@ -115,11 +112,12 @@ gulp.task('release:firefox', ['build'], () => {
     }
   })()
 
-  fs.stat(`${xpi.unsigned.outPath}/${xpi.unsigned.name}`, (err) => {
+  fs.stat(`${xpi.unsigned.outPath}/${xpi.unsigned.name}`, err => {
     if (!err) {
       console.log(redText('ERROR: The unsigned XPI already exists!'))
     } else {
-      return gulp.src(globs.static.output)
+      return gulp
+        .src(globs.static.output)
         .pipe(zip(xpi.unsigned.name))
         .pipe(gulp.dest(xpi.unsigned.outPath))
         .pipe(makeXpi(xpi.signed))

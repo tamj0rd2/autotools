@@ -11,8 +11,5 @@
   "plugins": [
     "mocha"
   ],
-  "extends": "standard",
-  "rules": {
-      "mocha/no-exclusive-tests": "error"
-    }
+  "extends": "standard"
 }
