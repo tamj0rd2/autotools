@@ -1,3 +1,9 @@
+const Feature = require('./feature').Feature
+
 module.exports = {
-  autoAssign: require('./auto-assign')
+  autoAssign: new Feature('autoAssign', {
+    enabled: false,
+    firstName: '',
+    lastName: ''
+  })
 }
